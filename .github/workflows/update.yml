@@ -1,0 +1,37 @@
+name: update-index
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: pip install -r requirements.txt
+      - name: Run update
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          AAI_MODEL: claude-sonnet-4-6
+        run: python -m aai.cli update
+      - name: Publish dashboard at repo root
+        run: cp reports/dashboard.html dashboard.html
+      - name: Commit refreshed dashboard and database
+        run: |
+          git config user.name  "aai-bot"
+          git config user.email "aai-bot@users.noreply.github.com"
+          git add data/cases.db reports/dashboard.html reports/latest.json dashboard.html
+          if ! git diff --cached --quiet; then
+            git commit -m "update: weekly AAI refresh"
+            git push
+          else
+            echo "No changes to commit."
+          fi
