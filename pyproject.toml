@@ -1,0 +1,20 @@
+[project]
+name = "aai-tracker"
+version = "0.1.0"
+description = "Authentication Authority Index: continuously-updated indicator for AI vs. institutional authority in art attribution."
+requires-python = ">=3.10"
+dependencies = [
+    "anthropic>=0.40.0",
+    "pydantic>=2.0",
+    "matplotlib>=3.7",
+]
+
+[project.scripts]
+aai = "aai.cli:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["aai*"]
