@@ -1,9 +1,9 @@
 {
-  "snapshot_at": "2026-06-01T11:43:02+00:00",
+  "snapshot_at": "2026-06-08T11:03:54+00:00",
   "money_weighted_dri": -0.6,
-  "hybridization_index": 0.323943661971831,
+  "hybridization_index": 0.3170731707317073,
   "instability_share": 0.0,
-  "divergence_cases_total": 48,
-  "hybridization_cases_total": 23,
+  "divergence_cases_total": 56,
+  "hybridization_cases_total": 26,
   "window_days": 365
 }
